@@ -16,5 +16,7 @@ server <- function(input, output) {
     data <- tryCatch(tar_read(processed_data), 
             error = function(err) NULL)
     validate(need(!is.null(data), "Please run pipeline to display clean table"))
-  })
+    data
+  }, options = list(scrollX = TRUE),
+  selection = list(target = "column"))
 }
