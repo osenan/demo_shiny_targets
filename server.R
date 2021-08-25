@@ -18,5 +18,15 @@ server <- function(input, output) {
     validate(need(!is.null(data), "Please run pipeline to display clean table"))
     data
   }, options = list(scrollX = TRUE),
-  selection = list(target = "column"))
+  selection = list(target = "column", mode = "single"))
+  
+  output$plot <- renderPlotly({
+    data <- tryCatch(tar_read(processed_data), 
+                     error = function(err) NULL)
+    validate(need(!is.null(data), "Please run pipeline to display clean table"))
+    index <- input$clean_table_columns_selected
+    validate(need(!is.null(index), "Please select one column to diplay histogram"))
+    var <- colnames(data)[input$clean_table_columns_selected]
+    plot_hist(data, var)
+  })
 }

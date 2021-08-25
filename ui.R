@@ -6,5 +6,6 @@ ui <- fluidPage(
   actionButton("write_pipeline", "Write Pipeline", icon = icon("tools")),
   h3("Clean Data"),
   p("Select columns to display in plot"),
-  DTOutput("clean_table")
+  DTOutput("clean_table"),
+  plotlyOutput("plot")
 )

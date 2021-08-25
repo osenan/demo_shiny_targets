@@ -1,6 +1,7 @@
 library("shiny")
 library("plotly")
 library("DT")
+library("glue")
 library("targets")
 
 suppressWarnings({

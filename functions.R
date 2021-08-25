@@ -3,8 +3,8 @@ write_pipeline <- function(removed_indexes) {
              code = {
                library(targets)
                library(tarchetypes)
-               tar_options_set(packages = c("dplyr"))
-               
+               tar_option_set(packages = c("dplyr"))
+               source("functions.R")
                list(
                  tar_target(data_file, "data/AirQualityUCI.csv", format = "file"),
                  tar_target(raw_data, read_data(data_file)),
@@ -22,4 +22,10 @@ clean_data <- function(data, removed_indexes = NULL) {
 
 read_data <- function(path) {
   read.csv(path)
+}
+
+plot_hist <- function(data, var) {
+  data %>% plot_ly(x = as.formula(glue("~{var}")), type = "histogram", 
+                   name = var) %>%
+    layout(title = glue("Histogram of {var}"))
 }
